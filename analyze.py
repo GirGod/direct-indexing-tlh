@@ -7,18 +7,21 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 from data import load_membership, download_prices
+from universe import YahooUniverse
 from engine import Config, Backtest
 from metrics import summary, taxes_by_year
 
 OUT = "output"
 mem = load_membership()
 px = download_prices([], None, None)                       # cached by fetch.py
+shares = pd.read_pickle("data/shares.pkl")                 # Yahoo shares outstanding, for cap weights
+uni = YahooUniverse(mem, px, shares, pd.read_pickle("data/close_split_adj.pkl"))
 spy = pd.read_pickle("data/spy.pkl").iloc[:, 0].resample("ME").last()
 
 
 def run(**kw):
     cfg = Config(**kw)
-    months, trades = Backtest(cfg, mem, px).run()
+    months, trades = Backtest(cfg, uni, px).run()
     return cfg, months, trades
 
 

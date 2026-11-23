@@ -14,12 +14,12 @@ from dataclasses import dataclass, field
 import numpy as np
 import pandas as pd
 
-from data import members_on
+
 
 
 @dataclass
 class Config:
-    start: str = "2010-01-01"
+    start: str = "2015-01-01"
     end: str = "2025-12-31"
     cash: float = 1_000_000          # the account starts as $1M cash
     harvest: bool = True             # False = the no-harvest twin
@@ -61,13 +61,13 @@ class Book:
 
 
 class Backtest:
-    def __init__(self, cfg, membership, daily_px):
+    def __init__(self, cfg, universe, daily_px):
         self.cfg = cfg
-        self.mem = membership
-        self.daily = daily_px
+        self.u = universe                                                 # members(d), caps
         self.rets = daily_px.pct_change(fill_method=None)                 # daily returns for correlations
         self.monthly = daily_px.resample(cfg.freq).last()                 # prices on each check date
         self.last_px = daily_px.ffill().resample(cfg.freq).last()         # last traded price, for delistings
+        self.caps = universe.caps.reindex(self.monthly.index, method="ffill") if universe.caps is not None else None
         self.book = Book(cash=cfg.cash)
         self.trades = []                                                  # one row per trade
         self.rows = []                                                    # one row per month
@@ -132,11 +132,19 @@ class Backtest:
         corr = window[cands].corrwith(window[x]).dropna()
         return corr.idxmax() if len(corr) else None
 
+    def cap_weights(self, members, d):
+        """Each member's share of the index's total market cap on date d (equal weight if no caps)."""
+        if self.caps is None:
+            return {t: 1 / len(members) for t in members}
+        caps = self.caps.loc[d].reindex(list(members))
+        caps = caps.fillna(caps.median())                                # a missing cap gets a typical size
+        return (caps / caps.sum()).to_dict()
+
     # ---------- one month ----------
     def step(self, d):
         cfg, book = self.cfg, self.book
         px = self.monthly.loc[d]
-        members = {t for t in members_on(self.mem, d) if t in px.index and pd.notna(px[t])}
+        members = {t for t in self.u.members(d) if t in px.index and pd.notna(px[t])}
         waiting = {p["x"] for p in book.pairs}                           # harvested, not yet swapped back
 
         # 1. index exits and delistings: sell everything we hold that is no longer a member
@@ -146,14 +154,16 @@ class Backtest:
                 self.sell_all(t, d, price, "index exit")
         book.pairs = [p for p in book.pairs if p["x"] in members and p["y"] in book.lots]
 
-        # 2. index entries: buy each new member at an equal share of the portfolio
+        # 2. index entries: buy each new member at its market-cap weight in the index
         value = book.value(px)
         new = [t for t in members if t not in book.lots and t not in waiting
                and not self.wash_blocked_buy(t, d)]
         if new:
-            each = min(value / len(members), book.cash / len(new))
+            weights = self.cap_weights(members, d)
+            want = {t: value * weights[t] for t in new}                  # dollars each entrant should get
+            scale = min(1.0, book.cash / sum(want.values()))             # never spend cash we don't have
             for t in sorted(new):
-                self.buy(t, each, d, px[t], "index entry")
+                self.buy(t, want[t] * scale, d, px[t], "index entry")
 
         if cfg.harvest:
             # 3. swap back: 31+ days after a harvest, sell the replacement and rebuy the original
