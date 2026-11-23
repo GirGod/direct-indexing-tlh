@@ -133,6 +133,8 @@ Lowering the trigger from 15% to 5% adds only 0.04% of tax alpha a year while tr
 
 # 5 · Conclusions
 
+**The takeaway.** The aim was to build the whole mechanism end to end (tax lots, the harvesting trigger, the wash-sale rule in both directions, replacement and swap-back, and a tax alpha measured against a twin that never harvests), so the same engine could run on a real account. Its main lesson is that the value is real but front-loaded and mostly a deferral, and that the details (when to harvest, how fast to return to the index) decide whether it helps.
+
 **Pros of direct indexing.** Each stock is its own tax lot, so losses can be harvested in years when the index is up. The account can be customised (exclusions, ESG screens, tilts, offsetting a concentrated position), and at institutional size trading costs are small: under $3,000 here over 11 years.
 
 **Value added for investors.** The value is largest for (i) investors with large realized gains elsewhere (a business sale, concentrated stock, active managers distributing gains), who can use short-term losses at up to 40.8%; (ii) new accounts and new money, because harvesting is front-loaded; and (iii) investors who will not liquidate, so the deferral becomes permanent through charitable giving or the step-up at death.
