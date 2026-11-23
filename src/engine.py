@@ -175,6 +175,9 @@ class Backtest:
                 y_lots = [l for l in book.lots.get(p["y"], []) if l.date == p["date"]]
                 gain = sum(l.shares * (px[p["y"]] - l.cost) for l in y_lots)
                 basis = sum(l.shares * l.cost for l in y_lots)
+                if gain < 0 and self.wash_blocked_sale(p["y"], d):         # selling y at a loss now would be
+                    keep.append(p)                                         # washed by a recent buy of y: wait
+                    continue
                 cap = cfg.swap_back_max_gain
                 if y_lots and (cap is None or gain <= cap * basis):      # undo the swap
                     cash = self.sell_lots(p["y"], y_lots, d, px[p["y"]], "swap back")
