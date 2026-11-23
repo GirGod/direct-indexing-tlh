@@ -53,7 +53,7 @@ The pattern is the main finding. Harvesting is worth most in the **first years**
 # 3 · Methodology
 
 ## 3.1 Portfolio construction
-On 31 January 2015 the $1M of cash buys every priced member at its market-cap weight. The portfolio is then **buy-and-hold**: cap weights drift with prices exactly as the index does, so no rebalancing trades (and no realized gains) are needed to stay close to it. On each month-end:
+On 31 January 2015 the $1M of cash buys every priced member at its market-cap weight. The portfolio is then **buy-and-hold**: cap weights drift with prices the way the index does (apart from buybacks and share issuance), so no rebalancing trades (and no realized gains) are needed to stay close to it. On each month-end:
 
 1. **Index exits and delistings**: every lot of a stock that left the index is sold (its last traded price is used if it stopped trading).
 2. **Index entries**: each new member is bought at its cap weight, funded by the exit proceeds.
