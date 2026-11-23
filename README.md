@@ -43,6 +43,8 @@ To rebuild the PDF: `cd report && pandoc report.md -o report.pdf --pdf-engine=te
 | `src/metrics.py` | taxes by year, tax alpha, harvested losses, tracking error, turnover |
 | `analyze.py` | runs everything and draws the charts |
 | `run.py` | runs the main case and the twin only, saving every trade |
+| `fetch_wrds.py` | optional: downloads CRSP monthly stock data, CRSP ticker history and Fama-French factors from WRDS (needs a WRDS account) into `~/Downloads/wrds/` |
+| `src/sp500_crsp.py` | optional: maps the dated S&P 500 ticker list to CRSP PERMNOs month by month (96% of members in 2010, 99.8% in 2015, 100% from 2018), for a survivorship-free rerun |
 
 ## Main assumptions (details in the report)
 
