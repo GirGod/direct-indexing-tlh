@@ -10,7 +10,7 @@ colorlinks: true
 
 # Summary
 
-I built a direct-indexed S&P 500 portfolio from $1 million of cash, tracked every tax lot, and harvested losses with a rule-based strategy that respects the 30-day wash-sale rule. I backtested it monthly from January 2015 to December 2025 against an identical portfolio that never harvests (the "twin"), so the only difference between the two is the harvesting.
+I built a direct-indexed S&P 500 portfolio from $1 million of cash, tracked every tax lot, and harvested losses with a rule-based strategy that respects the 30-day wash-sale rule. I backtested it monthly from January 2015 to December 2025 against a **twin**: the same portfolio, built from the same stocks, weights and data, that never harvests. The twin is my own copy of the S&P 500, not SPY. Because the two differ only in harvesting, every gap between them is caused by harvesting; SPY (the S&P 500 ETF) is shown alongside for context.
 
 | Headline (2015–2025, $1M start) | Result |
 |---|---|
