@@ -127,7 +127,7 @@ class Backtest:
     def replacement(self, x, d, members, px):
         """The member most correlated with x over the last year that we may legally buy."""
         window = self.rets.loc[:d].iloc[-self.cfg.corr_days:]
-        cands = [t for t in members if t != x and t in window.columns and pd.notna(px.get(t))
+        cands = [t for t in sorted(members) if t != x and t in window.columns and pd.notna(px.get(t))
                  and not self.wash_blocked_buy(t, d)]
         corr = window[cands].corrwith(window[x]).dropna()
         return corr.idxmax() if len(corr) else None
@@ -135,8 +135,8 @@ class Backtest:
     def cap_weights(self, members, d):
         """Each member's share of the index's total market cap on date d (equal weight if no caps)."""
         if self.caps is None:
-            return {t: 1 / len(members) for t in members}
-        caps = self.caps.loc[d].reindex(list(members))
+            return {t: 1 / len(members) for t in sorted(members)}
+        caps = self.caps.loc[d].reindex(sorted(members))
         caps = caps.fillna(caps.median())                                # a missing cap gets a typical size
         return (caps / caps.sum()).to_dict()
 
@@ -156,7 +156,7 @@ class Backtest:
 
         # 2. index entries: buy each new member at its market-cap weight in the index
         value = book.value(px)
-        new = [t for t in members if t not in book.lots and t not in waiting
+        new = [t for t in sorted(members) if t not in book.lots and t not in waiting
                and not self.wash_blocked_buy(t, d)]
         if new:
             weights = self.cap_weights(members, d)
