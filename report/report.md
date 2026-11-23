@@ -95,6 +95,8 @@ After the wash-sale window, the replacement lots are sold and the original stock
 
 Harvesting cost 0.22% a year of pre-tax return against the twin. This is the replacement drift during the 31-day windows: over 11 years it is within one tracking error and is not a systematic cost, but it is the price paid for the tax benefit.
 
+The two tracking errors measure different things. **Against the twin (1.48%)** is the drift caused by harvesting alone, since the two portfolios differ only in that. **Against SPY (1.89%)** adds the replication gap between our index and the real one: the twin itself tracks SPY with a 1.48% tracking error (missing delisted names and latest-share caps, Section 2). For a client, the SPY figure is the one they would see; the twin figure is the one the strategy is responsible for.
+
 ## 4.2 Tax alpha and harvested losses
 
 ![Tax alpha by year.](../output/tax_alpha.png){width=80%}
