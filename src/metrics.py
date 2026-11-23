@@ -38,9 +38,14 @@ def tracking_error(r_port, r_bench):
 
 
 def turnover(trades, months):
-    """Yearly one-way turnover = (buys + sells) / 2 / average portfolio value."""
+    """Yearly one-way turnover = (buys + sells) / 2 / average portfolio value.
+
+    The first day's purchases build the portfolio from cash; they are not turnover.
+    """
     t = trades.copy()
-    t["year"] = pd.to_datetime(t["date"]).dt.year
+    t["date"] = pd.to_datetime(t["date"])
+    t = t[t["date"] > t["date"].min()]
+    t["year"] = t["date"].dt.year
     traded = t.groupby("year")["value"].sum() / 2
     avg = months["value"].groupby(months.index.year).mean()
     fees = t.groupby("year")["fee"].sum()
