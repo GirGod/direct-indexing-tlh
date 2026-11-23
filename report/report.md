@@ -14,7 +14,7 @@ I built a direct-indexed S&P 500 portfolio from $1 million of cash, tracked ever
 
 | Headline (2015–2025, $1M start) | Result |
 |---|---|
-| Tax alpha, average per year (definition in §3.5) | **0.32%** of portfolio value |
+| Tax alpha, average per year (definition in Section 3.5) | **0.32%** of portfolio value |
 | Tax alpha, first 5 years / last 5 years | 0.62% / 0.06% |
 | Harvested losses, short-term / long-term | $152,674 / $69,955 |
 | Tax saved vs the twin, total | $50,955 |
@@ -57,8 +57,8 @@ On 31 January 2015 the $1M of cash buys every priced member at its market-cap we
 
 1. **Index exits and delistings**: every lot of a stock that left the index is sold (its last traded price is used if it stopped trading).
 2. **Index entries**: each new member is bought at its cap weight, funded by the exit proceeds.
-3. **Swap-backs** (§3.4).
-4. **Harvesting** (§3.3).
+3. **Swap-backs** (Section 3.4).
+4. **Harvesting** (Section 3.3).
 
 ## 3.2 Tax lots
 Every purchase creates a lot: purchase date, shares and cost basis per share. A lot is **short-term** if sold within 365 days of purchase and **long-term** otherwise. Sales identify specific lots: the harvest rule sells exactly the lots that are under water, and full sales go highest-cost-first (**HIFO**), which realizes the smallest gains first. Every sale records its realized short- and long-term gain or loss.
@@ -81,7 +81,7 @@ After the wash-sale window, the replacement lots are sold and the original stock
 
 ## 4.1 Returns and tracking
 
-![Growth of $1M, pre-tax. TLH and its twin move together; both run above SPY (residual survivorship, §2).](../output/growth.png){width=85%}
+![Growth of $1M, pre-tax. TLH and its twin move together; both run above SPY (residual survivorship, Section 2).](../output/growth.png){width=85%}
 
 | 2015–2025 | Direct index + TLH | Twin (no harvesting) | SPY |
 |---|---|---|---|
