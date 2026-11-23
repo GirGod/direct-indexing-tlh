@@ -96,3 +96,13 @@ plt.ylabel("% per year"); plt.title("Rolling 12-month tracking error vs the twin
 for k, v in s.items():
     print(f"{k:42s} {v:,.4f}" if abs(v) < 10 else f"{k:42s} {v:,.0f}")
 print(pd.DataFrame(sens).round(4).to_string(index=False))
+
+# ---------- year-by-year table for the report ----------
+y = yr.copy()
+y["cum ST+LT loss"] = (y["harvested ST loss"].fillna(0) + y["harvested LT loss"].fillna(0)).cumsum()
+lines = ["| Year | Tax alpha | Harvested ST loss | Harvested LT loss | Cumulative harvested | One-way turnover | Trading costs | Holdings (Dec) |",
+         "|---|---|---|---|---|---|---|---|"]
+for year, r in y.iterrows():
+    lines.append(f"| {year} | {r['tax alpha']:.2%} | ${abs(r['harvested ST loss']):,.0f} | ${abs(r['harvested LT loss']):,.0f} | "
+                 f"${r['cum ST+LT loss']:,.0f} | {r['turnover']:.1%} | ${r['fees']:,.0f} | {int(r['holdings (Dec)'])} |")
+open(f"{OUT}/yearly_table.md", "w").write("\n".join(lines) + "\n")

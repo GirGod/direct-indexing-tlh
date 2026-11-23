@@ -122,7 +122,25 @@ The portfolio holds 342 stocks in 2015, rising to 486 in 2025, tracking the numb
 
 **After-tax, if liquidated in December 2025** (paying long-term tax on all remaining gains), the TLH portfolio is worth **$3.65M** and the twin **$3.73M**. The pre-tax drift (−2.8% over 11 years) outweighs the tax saved once every deferred gain is paid. The benefit of TLH therefore depends on the investor *not* liquidating: holding on, giving shares to charity, or the step-up at death.
 
-## 4.4 Sensitivity
+## 4.4 Year by year
+
+Every result above, over time. Harvesting, turnover and tax alpha are concentrated in the first two years and in the drawdown years (2018, 2020); from 2021 the portfolio trades almost only for index changes. The first year's turnover excludes building the portfolio from cash.
+
+| Year | Tax alpha | Harvested ST loss | Harvested LT loss | Cumulative harvested | One-way turnover | Trading costs | Holdings (Dec) |
+|---|---|---|---|---|---|---|---|
+| 2015 | 1.97% | $60,331 | $0 | $60,331 | 69.7% | $725 | 342 |
+| 2016 | 0.44% | $27,732 | $8,893 | $96,956 | 54.2% | $601 | 386 |
+| 2017 | 0.13% | $4,746 | $5,442 | $107,144 | 10.7% | $143 | 403 |
+| 2018 | 0.52% | $11,630 | $9,216 | $127,989 | 12.5% | $191 | 381 |
+| 2019 | 0.05% | $6,181 | $2,132 | $136,303 | 8.8% | $147 | 431 |
+| 2020 | 0.16% | $14,079 | $33,082 | $183,463 | 16.6% | $311 | 438 |
+| 2021 | -0.03% | $77 | $127 | $183,668 | 0.2% | $5 | 453 |
+| 2022 | 0.00% | $580 | $2,369 | $186,618 | 1.3% | $32 | 454 |
+| 2023 | 0.01% | $3,015 | $1,495 | $191,128 | 2.3% | $63 | 468 |
+| 2024 | 0.11% | $3,236 | $6,153 | $200,517 | 3.6% | $126 | 473 |
+| 2025 | 0.22% | $21,067 | $1,045 | $222,629 | 3.8% | $152 | 486 |
+
+## 4.5 Sensitivity
 
 | Case | Tax alpha / yr | Pre-tax alpha vs twin | Tracking error vs twin | Turnover / yr |
 |---|---|---|---|---|
